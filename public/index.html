@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Free Online PDF editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Online PDF editor">
+  <meta name="author" content="Coding Unicorn">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+</head>
+
+<body>
+  
+  <div id="app">
+
+    <b-loading :is-full-page="true" v-model="uploadInProgress" :can-cancel="false"></b-loading>
+
+    <div class="container section">
+    <div class="columns is-mobile is-centered">
+        <div class="column is-two-thirds has-text-centered">
+          <div class="box">
+            <h1 class="title is-1">Free Online PDF editor</h1>
+              <b-field>
+                <b-upload drag-drop v-model="file" accept=".pdf" >
+                    <section class="section">
+                        <div class="content has-text-centered">
+                            <p>
+                                <b-icon
+                                    icon="upload"
+                                    size="is-large">
+                                </b-icon>
+                            </p>
+                            <p>Drop your files here or click to upload</p>
+                        </div>
+                    </section>
+                </b-upload>
+            </b-field>              
+              <span v-if="error" class="has-text-danger">
+                <br>
+                {{error}}
+              </span>              
+            <span class="is-size-7 ">* we don't store your documents.</span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="columns is-mobile is-centered">
+      <div class="column is-half">
+        <br>
+        <h2 class="subtitle is-7 has-text-right">Made by <strong><a href="https://instagram.com/coding_unicorn">Coding Unicorn</a></strong> 🦄 </h2>
+      </div>
+  </div>
+  
+    
+  </div>
+
+  <div v-if="editablePdf">
+    <div v-html="editablePdf" contentEditable="true"></div>
+    <b-button class='download is-primary' @click="download()">Download</b-button>
+  </div>
+
+</div>
+  <script src="app.js"></script>
+  <style>
+    @import 'https://fonts.googleapis.com/css?family=Arvo';
+    body {
+      font-family: 'Arvo', sans-serif;
+    }
+
+    @media print {
+      .download {
+        display: none !important;
+      }
+    }
+
+    .download {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  </style>
+
+</body>
+
+</html>
