@@ -21,7 +21,8 @@ app.get('/', (request, response) => {
 
 app.post('/', upload.single('file'), (request, response) => {
   const pdfFilePath = request.file.path;
-  const moreArgs = `--external-hint-tool=ttfautohint --dest-dir ${temporaryFileDir}`;
+  // const moreArgs = `--external-hint-tool=ttfautohint --debug 1 --dest-dir ${temporaryFileDir}`;
+  const moreArgs = `--debug 1 --dest-dir ${temporaryFileDir}`;
   const {err} = cmd.runSync(`pdf2htmlEX ${pdfFilePath} ${moreArgs}`);
   if (err) {
     throw err;
